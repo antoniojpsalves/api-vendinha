@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { compare } from 'bcryptjs'
+import { compare } from 'bcrypt'
 import { UsersRepository } from '../../repositories/users/users-repository'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 import { AuthenticateUseCaseRequest } from './dtos/authenticateUserDto'
@@ -20,7 +20,7 @@ export class AuthenticateUseCase {
       throw new InvalidCredentialsError()
     }
 
-    const doesPasswordsMatch = await compare(password, user.password_hash)
+    const doesPasswordsMatch = await compare(password, user.password)
 
     if (!doesPasswordsMatch) {
       throw new InvalidCredentialsError()

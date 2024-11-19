@@ -1,4 +1,4 @@
-import { hash } from 'bcryptjs'
+import { hash } from 'bcrypt'
 
 import { RegisterUserDto } from './dtos/registerUserDto'
 
@@ -13,11 +13,10 @@ export class RegisterUsers {
 
   async execute({
     name,
-    cpf_cnpj,
-    cep,
+    cnpj,
     email,
     password,
-    is_active,
+    isActive,
   }: RegisterUserDto): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
@@ -32,11 +31,10 @@ export class RegisterUsers {
 
     const user = await this.usersRepository.create({
       name,
-      cpf_cnpj,
-      cep,
+      cnpj,
       email,
-      password_hash,
-      is_active,
+      password: password_hash,
+      isActive,
     })
 
     return {

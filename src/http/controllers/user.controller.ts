@@ -6,23 +6,22 @@ import { RegisterUsers } from '../../use-cases/users/registerUser'
 import { PrismaUsersRepository } from '../../repositories/users/prisma-users-repository'
 import { UserEmailAlreadyExistsError } from '../../use-cases/users/errors/user-email-already-exists-error'
 
+import { GetAllUsers } from '../../use-cases/users/getAllUsers'
+
 export async function registerNewUser(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
   const registerBodySchema = z.object({
     name: z.string(),
-    cpf_cnpj: z.string().min(11),
-    cep: z.string().min(8),
+    cnpj: z.string().min(11),
     email: z.string().email(),
     password: z.string().min(6),
   })
 
-  const { name, cpf_cnpj, cep, email, password } = registerBodySchema.parse(
-    request.body,
-  )
+  const { name, cnpj, email, password } = registerBodySchema.parse(request.body)
 
-  const is_active = true
+  const isActive = true
 
   try {
     // Instanciando a dependência
@@ -34,11 +33,10 @@ export async function registerNewUser(
     // Usando o caso de uso
     await registerUseCase.execute({
       name,
-      cpf_cnpj,
-      cep,
+      cnpj,
       email,
       password,
-      is_active,
+      isActive,
     })
   } catch (err) {
     // console.error(err)
@@ -51,4 +49,24 @@ export async function registerNewUser(
   }
 
   return reply.code(201).send()
+}
+
+export async function getAllUsers(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  try {
+    // Instanciando a dependência
+    const prismaUserRepository = new PrismaUsersRepository()
+
+    // Injetando a dependência
+    const getAllUsers = new GetAllUsers(prismaUserRepository)
+
+    // Usando o caso de uso
+    const users = await getAllUsers.execute()
+    return reply.code(200).send(users)
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
 }

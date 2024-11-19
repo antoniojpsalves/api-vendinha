@@ -1,8 +1,7 @@
 export interface RegisterUserDto {
   name: string
-  cpf_cnpj: string
-  cep: string
+  cnpj: string
   email: string
   password: string
-  is_active: boolean
+  isActive: boolean
 }
