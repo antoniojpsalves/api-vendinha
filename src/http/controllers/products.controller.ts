@@ -6,6 +6,8 @@ import { PrismaProductsRepository } from '../../repositories/products/prisma-pro
 import { RegisterProductUseCase } from '../../use-cases/products/registerProduct'
 import { GetAllProducts } from '../../use-cases/products/getAllProducts'
 import { GetProductById } from '../../use-cases/products/getProductByid'
+import { UpdateProduct } from '../../use-cases/products/updateProduct'
+import { ProductDontExistsError } from '../../use-cases/products/errors'
 
 export async function registerNewProduct(
   request: FastifyRequest,
@@ -72,4 +74,45 @@ export async function getProductById(
   } catch (error) {
     console.error(error)
   }
+}
+
+export async function updateProduct(
+  request: FastifyRequest,
+  reply: FastifyReply,
+) {
+  const updateProductBodySchema = z.object({
+    name: z.string(),
+    qntd: z.coerce.number(),
+    preco: z.string(),
+  })
+
+  const updateProductByIdSchema = z.object({
+    id: z.coerce.number(),
+  })
+
+  const { id } = updateProductByIdSchema.parse(request.params)
+
+  const { name, qntd, preco } = updateProductBodySchema.parse(request.body)
+
+  try {
+    const prismaProductsRepository = new PrismaProductsRepository()
+    const updateProductUseCase = new UpdateProduct(prismaProductsRepository)
+
+    await updateProductUseCase.execute({
+      id,
+      name,
+      qntd,
+      preco,
+    })
+  } catch (err) {
+    // console.error(err)
+
+    if (err instanceof ProductDontExistsError) {
+      reply.code(409).send({ message: err.message })
+    }
+
+    throw err
+  }
+
+  return reply.code(201).send()
 }

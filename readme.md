@@ -13,7 +13,7 @@
 - [x] Cadastrar produto = 1
 - [x] Listar todos produtos = 0.5
 - [x] Retonar um produto por id
-- [ ] Update produto = 1
+- [x] Update produto = 1
 
 ### Vendas
 - [ ] Cadastrar   uma venda = 1
