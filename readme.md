@@ -2,21 +2,22 @@
 ---
 
 ## Dia = 28/10
-[x] - Cadastrar usuários
-[x] - Listar todos usuário= 0.5
-[x] - Retornar um usuário pelo id
-[x] - Update usuário   = 1
+- [x] Cadastrar usuários
+- [x] Listar todos usuário= 0.5
+- [x] Retornar um usuário pelo id
+- [x] Update usuário   = 1
 
 ## Dia = 18/11
 
 ### Produto
-[] - Cadastrar produto = 1
-[] - Listar todos produtos = 0.5
-[] - Update produto = 1
+- [x] Cadastrar produto = 1
+- [x] Listar todos produtos = 0.5
+- [x] Retonar um produto por id
+- [ ] Update produto = 1
 
 ### Vendas
-[] - Cadastrar   uma venda = 1
-[] - Listar todas vendas = 1
+- [ ] Cadastrar   uma venda = 1
+- [ ] Listar todas vendas = 1
 
 ## Para rodar o projeto no seu ambiente local
 
