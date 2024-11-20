@@ -7,8 +7,6 @@ export class PrismaUsersRepository implements UsersRepository {
     const user = await prisma.user.create({
       data,
     })
-
-    // usuário que acabou de ser inserido no banco
     return user
   }
 
@@ -18,7 +16,6 @@ export class PrismaUsersRepository implements UsersRepository {
         id,
       },
     })
-
     return user
   }
 
@@ -28,23 +25,25 @@ export class PrismaUsersRepository implements UsersRepository {
         email,
       },
     })
-
     return user
   }
 
   async findAllUsers() {
-    const users = await prisma.user.findMany()
+    const users = await prisma.user.findMany({
+      orderBy: {
+        id: 'asc',
+      },
+    })
     return users
   }
 
   async updateUser(id: number, data: Prisma.UserUpdateInput) {
-    const user = await prisma.user.update({
+    const userUpdated = await prisma.user.update({
       where: {
         id,
       },
       data,
     })
-
-    return user
+    return userUpdated
   }
 }

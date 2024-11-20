@@ -6,6 +6,7 @@ import {
   updateUser,
 } from './controllers/user.controller'
 import { authenticate } from './controllers/authentication.controller'
+import { registerNewProduct } from './controllers/products.controller'
 
 export async function appRoutes(app: FastifyInstance) {
   // Rota de usuários
@@ -17,4 +18,5 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/sessions', authenticate)
 
   // Rotas de produto
+  app.post('/products', registerNewProduct)
 }
