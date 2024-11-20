@@ -11,7 +11,7 @@ import cors from '@fastify/cors'
 export const app = fastify()
 
 app.register(cors, {
-  origin: '0.0.0.0',
+  origin: 'http://localhost:5173',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 })
 
