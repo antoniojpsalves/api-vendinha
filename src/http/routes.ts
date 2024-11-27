@@ -13,6 +13,7 @@ import {
   updateProduct,
 } from './controllers/products.controller'
 import {
+  cancelOrderById,
   getAllOrders,
   getOrderById,
   registerNewOrder,
@@ -37,4 +38,5 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/orders', registerNewOrder)
   app.get('/orders', getAllOrders)
   app.get('/orders/:id', getOrderById)
+  app.put('/orders/:id', cancelOrderById)
 }

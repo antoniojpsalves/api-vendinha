@@ -22,6 +22,15 @@ export class PrismaOrdersRepository implements OrdersRepository {
 
   async findAllOrders(): Promise<Pedido[] | null> {
     const orders = await prisma.pedido.findMany({
+      include: {
+        user: true,
+        produto: true,
+      },
+      where: {
+        status: {
+          contains: 'ativo',
+        },
+      },
       orderBy: {
         id: 'asc',
       },
@@ -29,15 +38,14 @@ export class PrismaOrdersRepository implements OrdersRepository {
     return orders
   }
 
-  async updateOrder(
-    id: number,
-    data: Prisma.PedidoUpdateInput,
-  ): Promise<Pedido | null> {
+  async updateOrder(id: number, newStatus: string): Promise<Pedido | null> {
     const oderUpdated = await prisma.pedido.update({
       where: {
         id,
       },
-      data,
+      data: {
+        status: newStatus,
+      },
     })
 
     return oderUpdated
