@@ -12,6 +12,11 @@ import {
   registerNewProduct,
   updateProduct,
 } from './controllers/products.controller'
+import {
+  getAllOrders,
+  getOrderById,
+  registerNewOrder,
+} from './controllers/orders.controller'
 
 export async function appRoutes(app: FastifyInstance) {
   // Rota de usuários
@@ -27,4 +32,9 @@ export async function appRoutes(app: FastifyInstance) {
   app.get('/products', getAllProducts)
   app.get('/products/:id', getProductById)
   app.put('/products/:id', updateProduct)
+
+  // Rotas de pedidos
+  app.post('/orders', registerNewOrder)
+  app.get('/orders', getAllOrders)
+  app.get('/orders/:id', getOrderById)
 }

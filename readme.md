@@ -16,8 +16,12 @@
 - [x] Update produto = 1
 
 ### Vendas
-- [ ] Cadastrar   uma venda = 1
-- [ ] Listar todas vendas = 1
+- [x] Validar se existe um produto cadastrado
+- [x] Validar se existe um vendedor cadastrado
+- [x] Cadastrar uma venda = 1
+- [x] Atualizar a quantidade disponível do produto vendido
+- [x] Retornar uma venda por id
+- [x] Listar todas vendas = 1
 
 ## Para rodar o projeto no seu ambiente local
 
