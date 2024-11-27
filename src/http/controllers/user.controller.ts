@@ -11,10 +11,7 @@ import { UpdateUser } from '../../use-cases/users/updateUser'
 import { UserDontExistsError } from '../../use-cases/users/errors/user-dont-exists-error'
 import { GetUserById } from '../../use-cases/users/getUserById'
 
-export async function registerNewUser(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function registerNewUser(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
     name: z.string(),
     cnpj: z.string().min(11),
@@ -54,10 +51,7 @@ export async function registerNewUser(
   return reply.code(201).send()
 }
 
-export async function getAllUsers(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function getAllUsers(request: FastifyRequest, reply: FastifyReply) {
   try {
     // Instanciando a dependência
     const prismaUserRepository = new PrismaUsersRepository()
@@ -74,7 +68,7 @@ export async function getAllUsers(
   }
 }
 
-export async function updateUser(request: FastifyRequest, reply: FastifyReply) {
+async function updateUser(request: FastifyRequest, reply: FastifyReply) {
   const updateBodySchema = z.object({
     name: z.string(),
     cnpj: z.string().min(11),
@@ -122,10 +116,7 @@ export async function updateUser(request: FastifyRequest, reply: FastifyReply) {
   return reply.code(201).send()
 }
 
-export async function getUserById(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function getUserById(request: FastifyRequest, reply: FastifyReply) {
   const updateUserByIdSchema = z.object({
     id: z.coerce.number(),
   })
@@ -143,3 +134,5 @@ export async function getUserById(
     console.error(error)
   }
 }
+
+export { registerNewUser, getAllUsers, updateUser, getUserById }

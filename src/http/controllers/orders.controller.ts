@@ -10,10 +10,7 @@ import { OutOfStoreError } from '../../use-cases/orders/errors/out-of-store-erro
 import { ProductDontExistsError } from '../../use-cases/orders/errors/product-dont-exists-error'
 import { UserDontExistsError } from '../../use-cases/orders/errors/user-dont-exists-error'
 
-export async function registerNewOrder(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function registerNewOrder(request: FastifyRequest, reply: FastifyReply) {
   const registerOrderBodySchema = z.object({
     userId: z.coerce.number(),
     productId: z.coerce.number(),
@@ -56,10 +53,7 @@ export async function registerNewOrder(
   return reply.code(201).send()
 }
 
-export async function getAllOrders(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function getAllOrders(request: FastifyRequest, reply: FastifyReply) {
   try {
     const prismaOrdersRepository = new PrismaOrdersRepository()
     const getAllOrdersUseCase = new GetAllOrders(prismaOrdersRepository)
@@ -72,10 +66,7 @@ export async function getAllOrders(
   }
 }
 
-export async function getOrderById(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function getOrderById(request: FastifyRequest, reply: FastifyReply) {
   const getOrderByIdSchema = z.object({
     id: z.coerce.number(),
   })
@@ -93,3 +84,5 @@ export async function getOrderById(
     console.error(error)
   }
 }
+
+export { registerNewOrder, getAllOrders, getOrderById }

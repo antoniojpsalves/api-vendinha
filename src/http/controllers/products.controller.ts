@@ -9,7 +9,7 @@ import { GetProductById } from '../../use-cases/products/getProductByid'
 import { UpdateProduct } from '../../use-cases/products/updateProduct'
 import { ProductDontExistsError } from '../../use-cases/products/errors'
 
-export async function registerNewProduct(
+async function registerNewProduct(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
@@ -38,10 +38,7 @@ export async function registerNewProduct(
   return reply.code(201).send()
 }
 
-export async function getAllProducts(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function getAllProducts(request: FastifyRequest, reply: FastifyReply) {
   try {
     const prismaProductsRepository = new PrismaProductsRepository()
     const getAllProductsUseCase = new GetAllProducts(prismaProductsRepository)
@@ -54,10 +51,7 @@ export async function getAllProducts(
   }
 }
 
-export async function getProductById(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function getProductById(request: FastifyRequest, reply: FastifyReply) {
   const getProductByIdSchema = z.object({
     id: z.coerce.number(),
   })
@@ -76,10 +70,7 @@ export async function getProductById(
   }
 }
 
-export async function updateProduct(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+async function updateProduct(request: FastifyRequest, reply: FastifyReply) {
   const updateProductBodySchema = z.object({
     name: z.string(),
     qntd: z.coerce.number(),
@@ -116,3 +107,5 @@ export async function updateProduct(
 
   return reply.code(201).send()
 }
+
+export { registerNewProduct, getAllProducts, getProductById, updateProduct }

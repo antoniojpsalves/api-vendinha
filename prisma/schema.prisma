@@ -37,7 +37,7 @@ model Pedido {
   produtoId  Int
   quantity   Int
   price      Float
-  status     String  @default("ativo") // Estados: ativo, cancelado
+  status     String  @default("ativo")
   user       User    @relation(fields: [userId], references: [id])
   produto    Produto @relation(fields: [produtoId], references: [id])
 }
